@@ -1,61 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>DokCik - Document Creator Kit</title>
+</head>
+<body>
+    <h1>📄 DokCik – Document Creator Kit</h1>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+    <p><strong>DokCik</strong> adalah API & Website generator dokumen otomatis berbasis template <code>.docx</code> dan <code>.xlsx</code>. Cocok digunakan untuk keperluan <strong>kantor desa, kelurahan, disdukcapil, back-office admin, dan instansi lainnya</strong> yang membutuhkan sistem pembuatan surat atau laporan cepat dan efisien.</p>
 
-## About Laravel
+    <hr>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    <h2>✨ Fitur Unggulan</h2>
+    <ul>
+        <li>✅ Upload & simpan template pribadi per user</li>
+        <li>✅ Mendukung format Microsoft Word (<code>.docx</code>) dan Excel (<code>.xlsx</code>)</li>
+        <li>✅ Mendukung template default dari sistem</li>
+        <li>✅ Dukungan Web UI dan RESTful API</li>
+        <li>✅ Proteksi dengan autentikasi (Laravel Sanctum)</li>
+    </ul>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    <hr>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    <h2>🚀 Instalasi</h2>
+    <pre><code>git clone https://github.com/yan043/dokcik.git
+cd dokcik
 
-## Learning Laravel
+# Install dependency
+composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Copy env dan generate key
+cp .env.example .env
+php artisan key:generate
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Set konfigurasi DB di file .env lalu migrate
+php artisan migrate
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Jalankan server lokal
+php artisan serve
+</code></pre>
 
-## Laravel Sponsors
+    <hr>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    <h2>📂 Struktur Template</h2>
+    <ul>
+        <li>Template pribadi pengguna: <code>storage/app/templates/{user_id}/</code></li>
+        <li>Template default sistem: <code>public/templates_default/</code></li>
+    </ul>
+    <p><strong>Catatan:</strong> Template harus menggunakan placeholder seperti <code>{{name}}</code>, <code>{{date}}</code>, dll.</p>
 
-### Premium Partners
+    <hr>
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    <h2>🌐 Penggunaan Website</h2>
+    <ol>
+        <li>Login terlebih dahulu</li>
+        <li>Upload template di menu <strong>Templates</strong></li>
+        <li>Buka menu <strong>Generate Document</strong></li>
+        <li>Isi form sesuai isian placeholder dalam template</li>
+        <li>Klik "Generate" → file akan otomatis dibuat dan bisa didownload</li>
+    </ol>
 
-## Contributing
+    <hr>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    <h2>📡 Penggunaan API</h2>
 
-## Code of Conduct
+    <h3>🔒 Auth via Sanctum</h3>
+    <p>Login terlebih dahulu dan gunakan token sebagai <code>Bearer</code> di header.</p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    <h3>🔧 Generate Dokumen</h3>
+    <p><strong>Endpoint:</strong></p>
+    <pre><code>POST /api/documents/generate</code></pre>
 
-## Security Vulnerabilities
+    <p><strong>Headers:</strong></p>
+    <pre><code>Authorization: Bearer {your_token}
+Accept: application/json</code></pre>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    <p><strong>Body (JSON):</strong></p>
+    <pre><code>{
+  "template_name": "template.docx",
+  "data": {
+    "name": "Mahdian",
+    "date": "2025-05-19"
+  }
+}</code></pre>
 
-## License
+    <h3>📥 Ambil Daftar Dokumen</h3>
+    <pre><code>GET /api/documents/list</code></pre>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    <hr>
+
+    <h2>🧪 Contoh Template</h2>
+    <p>Kamu bisa menggunakan template default berikut sebagai referensi:</p>
+    <ul>
+        <li><a href="/templates_default/template.docx" download>📄 template.docx</a></li>
+        <li><a href="/templates_default/template.xlsx" download>📊 template.xlsx</a></li>
+    </ul>
+
+    <hr>
+
+    <h2>🤝 Kontribusi</h2>
+    <p>Ingin ikut bantu pengembangan DokCik? Silakan fork dan ajukan pull request. Semua kontribusi sangat dihargai!</p>
+
+    <hr>
+
+    <h2>📛 Lisensi</h2>
+    <p>MIT License © 2025 - Mahdian & Kontributor DokCik</p>
+
+    <hr>
+
+    <p><em>Dibangun dengan ❤️ dan Laravel 12</em></p>
+</body>
+</html>
