@@ -21,7 +21,7 @@
 ## 🚀 Instalasi
 
 ```bash
-git clone https://github.com/yan043/dokcik.git
+git clone https://github.com/yan043/apps_dokcik.git
 cd dokcik
 
 composer install
