@@ -19,15 +19,25 @@ class DocumentsController extends Controller
 
     public function generate(Request $request)
     {
-        $request->validate([
+        $request->validate(
+        [
             'template_name' => 'required|string',
             'data'          => 'required|array'
         ]);
 
-        $userId = Auth::id() ?? 0;
-        $templatePath = "templates/{$userId}/{$request->template_name}";
+        $userId = Auth::id();
+        $templatePathUser = "templates/{$userId}/{$request->template_name}";
+        $templatePathDefault = public_path("templates_default/{$request->template_name}");
 
-        if (!Storage::exists($templatePath))
+        if (Storage::exists($templatePathUser))
+        {
+            $templateFile = Storage::path($templatePathUser);
+        }
+        else if (file_exists($templatePathDefault))
+        {
+            $templateFile = $templatePathDefault;
+        }
+        else
         {
             return response()->json(['error' => 'Template not found.'], 404);
         }

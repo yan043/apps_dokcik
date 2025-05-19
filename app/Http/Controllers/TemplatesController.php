@@ -16,20 +16,41 @@ class TemplatesController extends Controller
     public function list()
     {
         $userId = Auth::id() ?? 0;
-        $files = Storage::files("templates/{$userId}");
+        $userTemplates = Storage::files("templates/{$userId}");
 
-        $templates = [];
-
-        foreach ($files as $file)
+        $userTemplatesFormatted = array_map(function ($file)
         {
-            $templates[] = [
-                'name'      => basename($file),
-                'extension' => pathinfo($file, PATHINFO_EXTENSION),
-                'url'       => route('templates.download', ['filename' => basename($file)])
+            return
+            [
+                'name' => basename($file),
+                'url'  => route('templates.download', ['filename' => basename($file), 'user' => 'user'])
             ];
+        }, $userTemplates);
+
+        $defaultPath = public_path('templates_default');
+        $defaultTemplates = [];
+
+        if (is_dir($defaultPath))
+        {
+            $files = scandir($defaultPath);
+
+            foreach ($files as $file)
+            {
+                if (in_array(pathinfo($file, PATHINFO_EXTENSION), ['docx', 'xlsx']))
+                {
+                    $defaultTemplates[] =
+                    [
+                        'name' => $file,
+                        'url'  => asset("templates_default/{$file}")
+                    ];
+                }
+            }
         }
 
-        return view('templates.list', compact('templates'));
+        return view('templates.list',
+        [
+            'templates' => array_merge($userTemplatesFormatted, $defaultTemplates)
+        ]);
     }
 
     public function form()

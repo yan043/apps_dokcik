@@ -4,9 +4,9 @@ node_modules/
 .env.*
 !.env.example
 .phpunit.cache/
-# storage/
-# !storage/app/public/
-# public/storage
+storage/
+!storage/app/public/
+public/storage
 bootstrap/cache/
 
 
