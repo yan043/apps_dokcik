@@ -6,7 +6,7 @@ use App\Http\Controllers\TemplatesController;
 
 Route::get('/', function ()
 {
-    return view('welcome');
+    return view('readme');
 });
 
 Route::middleware('auth')->group(function ()
