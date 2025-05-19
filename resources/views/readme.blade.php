@@ -53,7 +53,7 @@
 
 <h2>🚀 Instalasi</h2>
 
-<pre><code>git clone https://github.com/your-username/dokcik.git
+<pre><code>git clone https://github.com/yan043/dokcik.git
 cd dokcik
 composer install
 cp .env.example .env

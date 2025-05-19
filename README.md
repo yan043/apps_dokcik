@@ -21,7 +21,7 @@
 ## 🚀 Instalasi
 
 ```bash
-git clone https://github.com/username/dokcik.git
+git clone https://github.com/yan043/dokcik.git
 cd dokcik
 
 composer install
@@ -83,7 +83,7 @@ POST /api/documents/generate
 {
   "template_name": "template.docx",
   "data": {
-    "name": "Siti Aminah",
+    "name": "Mahdian",
     "date": "2025-05-19"
   }
 }
