@@ -1,147 +1,130 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DokCik - Document Creator Kit</title>
+    <title>DokCik Documentation</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
             max-width: 800px;
-            margin: auto;
-            padding: 2rem;
-            background: #f9f9f9;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
             color: #333;
         }
-
         h1, h2, h3 {
-            color: #2c3e50;
+            color: #0073e6;
         }
-
-        pre {
-            background: #f0f0f0;
-            padding: 1em;
-            overflow-x: auto;
-        }
-
         code {
-            background: #eee;
-            padding: 0.2em 0.4em;
+            background-color: #eee;
+            padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
         }
-
-        a {
-            color: #2980b9;
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
         }
-
-        hr {
-            margin: 2rem 0;
+        a {
+            color: #0073e6;
         }
     </style>
 </head>
 <body>
-    <h1>📄 DokCik – Document Creator Kit</h1>
 
-    <p><strong>DokCik</strong> adalah API & Website generator dokumen otomatis berbasis template <code>.docx</code> dan <code>.xlsx</code>. Cocok digunakan untuk keperluan <strong>kantor desa, kelurahan, disdukcapil, back-office admin</strong>, dan instansi lainnya yang membutuhkan sistem pembuatan surat atau laporan cepat dan efisien.</p>
+<h1>📄 DokCik - Dokumen Cerdas & Praktis</h1>
 
-    <hr>
+<p><strong>DokCik</strong> adalah API & antarmuka web modern berbasis Laravel 12 untuk membuat dokumen otomatis dari template <code>.docx</code> dan <code>.xlsx</code>. Cocok digunakan oleh kantor desa, kelurahan, disdukcapil, dan instansi administrasi lainnya.</p>
 
-    <h2>✨ Fitur Unggulan</h2>
-    <ul>
-        <li>✅ Upload & simpan template pribadi per user</li>
-        <li>✅ Mendukung format Microsoft Word (<code>.docx</code>) dan Excel (<code>.xlsx</code>)</li>
-        <li>✅ Mendukung template default dari sistem</li>
-        <li>✅ Dukungan Web UI dan RESTful API</li>
-        <li>✅ Proteksi dengan autentikasi (Laravel Sanctum)</li>
-    </ul>
+<hr>
 
-    <hr>
+<h2>✨ Fitur Utama</h2>
+<ul>
+    <li>Mendukung format <code>.docx</code> dan <code>.xlsx</code></li>
+    <li>Pengguna bisa mengunggah dan mengelola template sendiri</li>
+    <li>Integrasi API untuk generate dokumen otomatis</li>
+    <li>Dukungan autentikasi Laravel Sanctum</li>
+    <li>Dukungan tampilan antarmuka web</li>
+    <li>Template default juga disediakan</li>
+</ul>
 
-    <h2>🚀 Instalasi</h2>
-    <pre><code>git clone https://github.com/username/dokcik.git
+<h2>🚀 Instalasi</h2>
+
+<pre><code>git clone https://github.com/your-username/dokcik.git
 cd dokcik
-
 composer install
-
 cp .env.example .env
 php artisan key:generate
-
-# Set konfigurasi database di file .env
 php artisan migrate
-
-php artisan serve
+php artisan storage:link
 </code></pre>
 
-    <hr>
+<h3>Tambahkan Storage Folder</h3>
+<pre><code>mkdir -p storage/app/templates
+mkdir -p storage/app/documents</code></pre>
 
-    <h2>📂 Struktur Template</h2>
-    <ul>
-        <li>Template pribadi pengguna: <code>storage/app/templates/{user_id}/</code></li>
-        <li>Template default sistem: <code>public/templates_default/</code></li>
-    </ul>
-    <p><strong>Catatan:</strong> Template harus menggunakan placeholder seperti <code>{name}</code>, <code>{date}</code>, dll.</p>
+<h2>🔐 Autentikasi</h2>
+<p>Pastikan sudah setup <code>Laravel Sanctum</code> untuk API dan Laravel Breeze atau Fortify untuk web login.</p>
 
-    <hr>
+<h2>🌐 API Endpoint</h2>
 
-    <h2>🌐 Penggunaan Website</h2>
-    <ol>
-        <li>Login terlebih dahulu</li>
-        <li>Upload template di menu <strong>Templates</strong></li>
-        <li>Buka menu <strong>Generate Document</strong></li>
-        <li>Isi form sesuai isian placeholder dalam template</li>
-        <li>Klik <strong>Generate</strong> untuk membuat dokumen</li>
-    </ol>
+<h3>POST /api/documents/generate</h3>
+<p>Generate dokumen dari template (autentikasi token diperlukan)</p>
 
-    <hr>
+<pre><code>POST /api/documents/generate
+Headers:
+Authorization: Bearer &lt;token&gt;
 
-    <h2>📡 Penggunaan API</h2>
-
-    <h3>🔒 Auth via Sanctum</h3>
-    <p>Login terlebih dahulu dan gunakan token sebagai <code>Bearer</code> di header.</p>
-
-    <h3>🔧 Generate Dokumen</h3>
-    <p><strong>Endpoint:</strong></p>
-    <pre><code>POST /api/documents/generate</code></pre>
-
-    <p><strong>Headers:</strong></p>
-    <pre><code>Authorization: Bearer {your_token}
-Accept: application/json
-</code></pre>
-
-    <p><strong>Contoh Body (JSON):</strong></p>
-    <pre><code>{
+Body (JSON):
+{
     "template_name": "template.docx",
     "data": {
-        "name": "Siti Aminah",
-        "date": "2025-05-19"
+        "nama": "Budi",
+        "alamat": "Jalan Mawar"
     }
 }</code></pre>
 
-    <h3>📥 Ambil Daftar Dokumen</h3>
-    <pre><code>GET /api/documents/list</code></pre>
+<h3>GET /api/documents/list</h3>
+<p>Melihat daftar dokumen yang telah digenerate.</p>
 
-    <hr>
+<hr>
 
-    <h2>🧪 Contoh Template</h2>
-    <p>Kamu bisa menggunakan template default berikut sebagai referensi:</p>
-    <ul>
-        <li><a href="/templates_default/template.docx" download>📄 template.docx</a></li>
-        <li><a href="/templates_default/template.xlsx" download>📊 template.xlsx</a></li>
-    </ul>
+<h2>🖥️ Antarmuka Web</h2>
 
-    <hr>
+<ul>
+    <li><code>/templates</code> → Daftar template yang diunggah</li>
+    <li><code>/templates/upload</code> → Upload template baru</li>
+    <li><code>/documents/form</code> → Form untuk generate dokumen dari web</li>
+</ul>
 
-    <h2>🤝 Kontribusi</h2>
-    <p>Ingin ikut bantu pengembangan DokCik? Silakan fork dan ajukan pull request. Semua kontribusi sangat dihargai!</p>
+<h2>📁 Lokasi Penyimpanan Template</h2>
 
-    <hr>
+<ul>
+    <li><code>storage/app/templates/{user_id}/</code> → untuk template pengguna</li>
+    <li><code>public/templates_default/</code> → untuk template default bawaan sistem</li>
+</ul>
 
-    <h2>📛 Lisensi</h2>
-    <p>MIT License © 2025 - Mahdian & Kontributor DokCik</p>
+<h2>📎 Contoh File Template</h2>
+<ul>
+    <li><code>template.docx</code> dengan tag seperti <code>${nama}</code>, <code>${alamat}</code></li>
+    <li><code>template.xlsx</code> dengan tag pada sel seperti <code>${tanggal}</code></li>
+</ul>
 
-    <hr>
+<h2>⚠️ Catatan</h2>
+<ul>
+    <li>Gunakan penamaan variabel sesuai dengan data yang akan di-inject ke dalam template.</li>
+    <li>Untuk penggunaan tag di .docx dan .xlsx, pastikan menggunakan format <code>${namavariabel}</code></li>
+</ul>
 
-    <p><em>Dibangun dengan ❤️ dan Laravel 11</em></p>
+<h2>📬 Lisensi</h2>
+<p><strong>MIT License</strong> – Bebas digunakan, dimodifikasi, dan dikembangkan lebih lanjut.</p>
+
+<hr>
+
+<p style="text-align: center;"><strong>Made with ❤️ for public service documentation – DokCik</strong></p>
+
 </body>
 </html>

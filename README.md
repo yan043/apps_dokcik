@@ -118,4 +118,4 @@ Silakan fork repo ini dan ajukan pull request. Semua kontribusi sangat kami apre
 
 MIT License © 2025 - Mahdian & Kontributor DokCik
 
-> Dibangun dengan ❤️ dan Laravel 11
+> Dibangun dengan ❤️ dan Laravel 12
